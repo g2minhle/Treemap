@@ -1,0 +1,19 @@
++ Display a treemap
++ Display path to the main directory (the one the user selects at program startup) blitted at the bottom of the screen
++ Continually update the text at the bottom of the window when the mouse is currently hovering over
++ Dont redraw everything all over again, just redraw what need to redraw
++ Use a simple heuristic to make the map look better, try to divide the entire files into almost equal partition so that the ratio of every file stable.
+	-Divide list of file into almost equal partitions
+	-Then continue divide the new partitions until there is only one 1 file/ directory
+	-If it is directory, continue to divide it 
++ Handle key press to navigate the selected file:
+	-Go from files to files in same directory
+	-Go from files to directory in same directory
+	-Go into directories
+	-Go out directories
++ Have a help file
++ Use link list to connect all files and folders in one folders
++ Refresh button: to re-examine the current folder
++ Create the winform, button and label class which can be used to build another winform application
++ Load new folder button : to load new folder during the run time
++ Exit button

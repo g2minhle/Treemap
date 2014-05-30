@@ -1,0 +1,15 @@
+A2.TREEMAP.
+
++ This program is a display of data that uses nested rectangles to represent how big each piece of data is.  
+
++ The program will only present all the files of the directory and its subdirectories.
+
++ Files in the same folder will be near each other. There will be no way to distinguish at the beginning, but if user selects a file by clip on them then user the navigation to get to a directory, the directory will have a black border
+
++ Key navigates:
+	-Left, right, ‘a’ key, ‘d’ key : Go from files to files in same directory
+	-Left, right, ‘a’ key, ‘d’ key : Go from files to directory in same directory 
+	-Down, enter, ‘s’ key : Go into directories
+	-Up, backspace, ‘w’ key : Go out directories
++ Button load forlder to load another folder 
++ Button refresh to reload the current folder 

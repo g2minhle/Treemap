@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="http://www.cdf.toronto.edu/~csc148h/fall/styles.css" type="text/css">
+        <title>
+            Assignment 2: Treemaps
+        </title>
+    </head>
+    <body>
+        <div class="title">
+            <h1>
+                Assignment 2: Treemaps
+            </h1>
+        </div>
+
+        <div>
+            <h2>
+                Introduction
+            </h2>
+
+            <p>
+                A <a href="http://en.wikipedia.org/wiki/Treemapping" title="Treemapping - Wikipedia, the free encyclopedia"><i>treemap</i></a> is a display of data that uses nested rectangles to represent how big each piece of data is. Read the "Main idea" and "The tiling algorithm" sections in the linked Wikipedia article. Your program <b>must</b> use the algorithm described below.
+            </p>
+
+            <p>
+                Treemaps are used in a many contexts. Among the more popular uses are news headlines, various kinds of financial information, and computer disk usage. You will be writing a program to display disk usage. Here are some free programs that do this: <a href="http://www.derlien.com/" title="Disk Inventory X">Disk Inventory X</a> (for OS X), <a href="http://kdirstat.sourceforge.net/" title="KDirStat">KDirStat</a> (for Linux), and <a href="http://portableapps.com/apps/utilities/windirstat_portable" title="WinDirStat Portable | PortableApps.com - Portable software for USB, portable and cloud drives">WinDirStat</a> (for Windows).
+            </p>
+
+            <h3>
+                Pairs
+            </h3>
+
+            <p>
+                You may work in pairs on this assignment; you can register this on MarkUs. We strongly recommend having a partner so that you can bounce ideas off of each other.
+            </p>
+
+            <h3>
+                Avoiding an academic offence
+            </h3>
+
+            <p>
+                On A1, we found several cases where students had submitted Battleship code that was downloaded from the web, and those students are being charged with an academic offence.
+            </p>
+
+            <p>
+                There are several treemap programs available on the web; we've already spent significant time searching for them. Please don't do this. Also, don't post your code on the web until <i>after</i> the due date: we're going to search again to see if anyone has posted their code.
+            </p>
+
+            <h3>
+                PyGame tutorial
+            </h3>
+
+            <p>
+                This assignment has you learn a bit about PyGame, a library that was originally intended to be used to write games but that has a lot of features for writing general graphical applications. We provide <a href="pygame_tutorial.shtml">a short PyGame tutorial</a> that covers what you need to know.
+            </p>
+
+            <h3>
+                Navigating a file system
+            </h3>
+
+            <p>
+                The <code>os</code> and <code>os.path</code> modules provide functions for interacting with the operating system, including the file system.
+            </p>
+
+            <p>
+                You can get the contents of a directory using <code>os.listdir</code>, and check whether a path is a directory using <code>os.path.isdir</code>. <code>os.path.join</code> appends a subdirectory name to a string using the appropriate path separator ('/' on OS X and Linux, '\' on Windows) so that you can write platform-independent code. The size of a file or directory can be found using <code>os.path.getsize</code>.
+            </p>
+
+            <p>
+                Here is a program that recursively prints the contents of a directory, indenting every time we recurse. Read carefully so that you can see how we use the <code>os</code> and <code>os.path</code> functions.
+            </p>
+
+            <pre>
+import os
+import os.path
+
+def print_items(d, indentation):
+    '''(str, str) -&gt; NoneType
+    Print the list of files and directories in directory d, recursively,
+    prefixing each with indentation.'''
+
+    print indentation + d + ":"
+    for filename in os.listdir(d):
+        print indentation + filename
+
+    for filename in os.listdir(d):
+        subitem = os.path.join(d, filename)
+        if os.path.isdir(subitem):
+            print_items(subitem, indentation + '    ')
+
+if __name__ == '__main__':
+    # You can use something like "C:" to print your entire Windows hard drive,
+    # or something like /Users/pgries on OS X to print that, or
+    # /u/YOUR_CDF_ID on CDF to print your CDF directory hierarchy.
+    print_items('/Users/pgries', '')
+</pre>
+            <h2>
+                What your program should do
+            </h2>
+
+            <p>
+                Name your main program <code>treemap.py</code>. When run, your program should do the following things:
+            </p>
+
+            <ul>
+                <li>When it starts up, it should somehow ask the user to choose a directory. How you do this is up to you.
+                </li>
+
+                <li>After a directory has been chosen, your program should build a tree of files and directories, and then display a treemap showing the relative sizes of the various pieces. You'll need to get the sizes of the files and, for directories, calculate the total size of everything inside it, including the directory itself.
+                </li>
+            </ul>
+
+            <h2>
+                The tiling algorithm
+            </h2>
+
+            <p>
+                You can pick the background colour for the screen.
+            </p>
+
+            <p>
+                Assign a random colour to each file in the file tree. It <i>has</i> to be random. You can store this colour information in your file tree. (If you want a non-random option please feel free to add one, but start with the random one.)
+            </p>
+
+            <p>
+                Your drawing function should take as parameters the location and size of the rectangle for the current item from the file tree. You'll also need to pass in the current PyGame screen and the current item from the file tree.
+            </p>
+
+            <p>
+                For a file, draw a filled rectangle using the file's colour.
+            </p>
+
+            <p>
+                For a directory, first draw every item inside the directory, and then draw a white rectangle (using the parameter location and size) around all those items. If the directory's rectangle is wider than it is high, draw the subrectangles from left to right; otherwise, subdivide the directory's rectangle from the top to the bottom. That way you will avoid having skinny, long rectangles.
+            </p>
+
+            <h2>
+                Marking
+            </h2>
+
+            <p>
+                60% correctness, 40% presentation: style, documentation, organization, and design.
+            </p>
+
+            <p>
+                No unit testing is required, but we do recommend setting up some testing in order to save yourselves time.
+            </p>
+
+            <p>
+                You <i>must</i> use classes and inheritance to represent your files and directories. (What do they have in common? How do they differ?)
+            </p>
+
+            <p>
+                Divide your code into sensible modules (files).
+            </p>
+
+            <p>
+                We will be fierce about style and design during the marking, including docstrings, internal comments (not too many, not too few), function length, whitespace, naming, and duplicate code. We suggest that you write good docstrings and keep your code organized <i>as you go</i>. Of course, you can wait until the end to try to fix things up, but you'll do way more work that way.
+            </p>
+
+            <p>
+                In order to get up to 75% of the mark, your program needs to display a treemap with the path to the main directory (the one the user selects at program startup) blitted at the bottom of the screen.
+            </p>
+
+            <p>
+                In order to get up to 100% of the mark, your program needs to display a treemap, and then continually update the text at the bottom of the window to show the path for the file the mouse is currently hovering over.
+            </p>
+
+            <p>
+                In order to earn up to a 20% bonus (with a total maximum A2 mark of 120%), you can add enhancements: make this truly interactive so that various kinds of file system navigation can happen. You might want to look into how PyGame handles keystrokes and right clicks and so on. As with A1, describe what you've done in a file called <code>enhancements.txt</code>. As with A1, the first 5% will be easy to get, and so on.
+            </p>
+        </div>
+    </body>
+</html>

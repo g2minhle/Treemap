@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+
+import sys
+
+from ampy import ampy
+
+# very, very naive command-line AMP client
+if len(sys.argv) < 4:
+    print "Usage: ampclient.py [ --no-answer ] <host> <port> <command-name> [ arg1=val1 ... ]"
+    sys.exit(1)
+
+answerExpected = True
+if sys.argv[1] == '--no-answer':
+    answerExpected = False
+    del sys.argv[1]
+
+kw = dict([arg.split('=', 1) for arg in sys.argv[4:]])
+
+class DynamicStringCommand(ampy.Command):
+    """DynamicStringCommand is a fancy name for a simple hack: we have no knowledge of how many or what
+    types of arguments the remote side is expecting, nor do we know the number or types of the reponse.
+    As such we just treat everything as strings. Since AMP serializes many common types as their Python
+    string form this works out fairly well.
+    """
+    commandName = sys.argv[3]
+    arguments = [(k, ampy.String()) for k in kw]
+
+    def deserializeResponse(cls, wireResponse):
+        return wireResponse
+    deserializeResponse = classmethod(deserializeResponse)
+
+proxy = ampy.Proxy(sys.argv[1], int(sys.argv[2])).connect()
+if answerExpected:
+    response = proxy.callRemote(DynamicStringCommand, **kw)
+    for k, v in response.items():
+        print "%s: %s" % (k, v)
+else:
+    proxy.callRemoteNoAnswer(DynamicStringCommand, **kw)

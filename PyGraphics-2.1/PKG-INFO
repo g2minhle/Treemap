@@ -1,0 +1,22 @@
+Metadata-Version: 1.0
+Name: PyGraphics
+Version: 2.1
+Summary: Easily-accessible library for media manipulation
+Home-page: http://code.google.com/p/pygraphics
+Author: Jen Campbell, Paul Gries, Leo Kaliazine, Chris Maddison, Hardeep Singh, Devin Jeanpierre
+Author-email: pgries@cs.toronto.edu
+License: GPL
+Description: PyGraphics provides a set of easy-to-use procedural media
+        manipulation tools and is intended for new programmers.  It is based on a
+        Jython library developed by Mark Guzdial at Georgia Tech.
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: MacOS X
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: Environment :: X11 Applications
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
